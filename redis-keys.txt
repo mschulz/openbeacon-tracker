@@ -1,0 +1,83 @@
+LIST OF KEYS FOR Openbeacon Badges
+
+TAGS
+	Set Tags
+		tag_list					contains the set of all tag:<id> keys
+	Hash tags
+		tag:<id>					unique for each badge		
+		
+		FIELDS
+			tag_id					id for the badge
+			seq_number				sequence number of last sighting
+			button					timestamp of last button press
+			last_seen				timestamp of last sighting
+			last_calculated
+			last_reader_statistics
+			px						estimated x position
+			py						estimated y position
+			vx
+			vy
+			last_reader				<id> of last reader to see this tag
+			
+		tag:<id>:power:<strength>	strength levels range 0..3 inclusive
+		
+		FIELDS
+			count					count of sightings at level <strength>
+			reader					reader responsible for this sighting  
+			px						count of sightings at level <strength>
+			py						count of sightings at level <strength>
+			Fx						count of sightings at level <strength>
+			Fy						count of sightings at level <strength>
+	String tags
+		
+		
+READERS
+	Set Tags
+		reader_list					set of all reader:<id> keys
+	Hash Tags
+		reader:<id>					id for this reader
+		
+		FIELDS
+			reader_id				ip address string for this reader
+			reader_name				string name for this reader, taken from the section name in .ini
+			description				JSON string describing the reader
+			x						x-coordinate of reader location
+			y						y-coordinate of reader location
+							
+READER-TAG ASSOCIATIONS
+	Set Tags
+		read_tag_list				set of all pairings
+		
+	Hash Tags
+		reader:<r_id>:tag:<t_id>	unique for each pairing
+		
+		FIELDS
+			last_seen				time stamp of last sighting for this pair
+			tag_id					tag identifier
+			reader_id				reader identifier
+			
+		reader:<r_id>:tag:<t_id>:power:<strength>	strength levels range 0..3 inclusive
+		
+		reader:<r_id>:tag:<t_id>:agg	aggregation values
+		FIELDS
+			...
+		
+
+TAG PROXIMITY
+	Set Tags
+		proximity_list				set of all proximity key pairs
+		
+	Hash Tags
+		prox:<tag_id_1>:<tag_id_2>	unique for all pairs of tags
+		
+		FIELDS
+			last_seen				timestamp of last sighting
+			tag1					id of tag 1
+			tag2					id of tag 2 (greater numerically than tag1 id)
+		
+	String Tag	
+		prox:<tag_id_1>:<tag_id_2>:strength:<strength>:time:<timestamp>
+									count of sightings at strength Level with a timestamp.  Strength
+									levels range 0..3. Has an expiry time associated with each sighting.
+									
+		
